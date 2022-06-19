@@ -33,7 +33,7 @@ The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel
 https://www.motortrend.com/
 </center>
 
-[RStudio](https://heyeddie23.github.io/practice)
+[Practice](https://heyeddie23.github.io/practice)
 
 
 ***

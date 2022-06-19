@@ -1,0 +1,22 @@
+---
+title: "Webpage"
+author: "heyeddie23"
+date: "6/19/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+trees[1:5,]
+```
+
+```{r}
+hist(trees$Girth, main = "Cherry Trees Girths", xlab="Girth", col = "tan4")
+```
+
+```{r}
+plot(trees)
+```
+
