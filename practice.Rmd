@@ -1,0 +1,34 @@
+---
+title: "R Code Chunk Practice"
+author: "Ashley"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Example 1
+
+This shows you how to use R **AND**  output the results.
+
+```{r car}
+summary(cars)
+```
+
+## Example 2
+
+This shows you how to output results from R code without actually displaying the code.
+
+```{r cars, echo=FALSE}
+plot(cars$speed, cars$dist)
+```
+
+## Example 3
+This shows you how to display R code without actually running it.
+
+```{r Plot, eval=FALSE}
+plot(cars$speed, cars$dist)
+```
+
+## Example 4
+This shows the resutls of inline code. I can calculate the mean of the *dist* variable from the *cars* dataset as 42.98.

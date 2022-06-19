@@ -1,0 +1,161 @@
+---
+title: "R Markdown HW"
+author: "heyEddie23"
+date: "10/3/2021"
+output: 
+ rmarkdown::html_document:
+    theme: lumen 
+    toc: True
+    toc_float: True
+    highlight: kate
+    code_folding: hide
+---
+
+# Overview
+The purpose of this tutorial is perform a one sample t-test using the *Mtcars* data in R.  By the end of the tutorial, you should be able to:
+
+<style>
+div.pink { background-color:#facfd7; border-radius: 5px; padding: 15px;}
+</style>
+<div class = "pink">
+
+* Display the data graphically.
+* Check assumptions for a one-sample t-test.
+* Perform and interpret a one-sample t-test.
+</div>
+
+#### The Dataset: *Motor Trend Car Road Tests*
+The data was extracted from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+<center>
+![ ](C:\\Users\\ashed\\OneDrive - Southern Methodist University\\Consulting Class\\RMarkdown HW\\1974MT.jpg)
+
+https://www.motortrend.com/
+</center>
+
+[RStudio](https://www.rstudio.com)
+
+
+***
+## Question
+Is the average miles per gallon for the vehicles better than 22 mpg?
+
+### Hypotheses
+
+#### Null
+
+$H_0: \mu = 22$  
+The true population mean miles per gallon for the vehicles is 22 mpg.
+
+
+#### Alternative
+
+$H_A: \mu > 22$  
+The true population mean miles per gallon for the vehicles is greater than 22 mpg.
+
+### The Data
+*Mtcars* is a dataset that comes with R.  Simply type *mtcars* and you can view the data.
+```{r, eval=FALSE, class.source="fold-show"}
+mtcars
+```
+**************************
+
+## Calculations
+
+### Step 1: Examine the data.
+##### We will begin by examining the first five rows of the dataset.  Let's see how many data lines and variables are in the data.
+
+```{r Dataset, results='asis', echo=FALSE}
+knitr::kable(mtcars[1:5,])
+```
+
+```{r Dim, echo=FALSE}
+paste('There are', nrow(mtcars), 'rows of data and ', ncol(mtcars), 'variables.')
+```
+
+
+### Step 2: Check  condtions/assumptions. {.tabset}
+#### Conditions
+The following conditions should be checked to use a one-sample t-test: 
+
+1. Randomization
+  * Was the data randomly selected?
+2. Continuity
+  * Is the response variable continuous?
+3. Independence
+  * Are the observations are independent of one another?
+4. Normality
+  * Is the response variable normally distributed?
+  * Does the data contain any extreme outliers?
+
+#### Boxplot
+```{r box1}
+boxplot(mtcars$mpg, main="Boxplot of Miles per Gallon for the Vehicles",
+        col="#ff91a4", ylab="MPG")
+```
+
+#### Summary
+```{r sum1, echo=FALSE}
+summary(mtcars$mpg)
+paste("Sample size, n = ", nrow(mtcars))
+```
+
+#### Histogram
+```{r}
+hist(mtcars$mpg, main="Histogram of Miles per Gallon for the Vehicles", xlab = "MPG", col="#8DB600")
+```
+
+
+#### Q-Q Plot
+```{r, QQ}
+qqnorm(mtcars$mpg, col="#8DB600", pch=16)
+qqline(mtcars$mpg, col="#ff91a4", lwd=3)
+```
+
+#### Check Conditions
+
+- [ ] Randomly selected       *It is unclear how the data were selected.  We will assume the data is representative of the population.*
+- [x] Continuous
+- [x] Independent
+- [x] Normally distributed       *The sample size is greater than 30 and the data is slightly skewed.  T-test are robust to normality, therefore we will proceed with a one-sample t-test.*
+
+
+
+******************************
+
+### Step 3: Perform t-test
+
+```{r t-test, class.source="fold-show"}
+carsttest<-t.test(mtcars$mpg, alternative = "greater", mu=22); carsttest
+```
+```{r, include=FALSE}
+p<-as.numeric(carsttest[3])
+```
+
+
+
+
+## Interpretation
+
+Using a one-sample t-test, there is insufficient evidence ( t = `r carsttest[1]`, df = `r carsttest[2]`, `r ifelse(carsttest[3]>.001, paste("p = ", round(p, 4)), "p < 0.001")`, $\alpha$ = 0.05) to reject the null hypothesis, therefore we cannot conclude that the true population mean miles per gallon is greater than 22 mpg.
+
+## Extras {.tabset}
+
+### Appearance
+The overall look of the html output can be modified with pre-packaged themes.  The theme I chose was "cerulean."  The most noticeable difference is the font color.  The color for the headers changed from black to cerulean.
+
+I 'highlighted' the code which makes it easier to determine what is a command versus a variable.
+
+I highlight certain chunks of text to bring attention to it or emphasize it as important.  I did that on my objectives for this assignment.
+
+I also added a checklist as well.
+
+### Code Folding
+I included this feature because some of my code was long, and it seems like a nice way to keep things aesthetically appealing.
+
+### Tabs
+Tabs can be added to the R Markdown html.  This feature helps to shorten the document, condense topics, and group examples.
+
+### Conclusion
+
+![ ](C:\\Users\\ashed\\OneDrive - Southern Methodist University\\Consulting Class\\RMarkdown HW\\Thankyou.gif)
